@@ -10,7 +10,7 @@
 
 set -e
 
-if [ '' != "$1" ] ; then
+if [ '' == "$1" ] ; then
   # assume they want the latest version
   LOGSTASH_VERSION=1.4.0
 else
