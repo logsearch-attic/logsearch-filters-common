@@ -19,8 +19,23 @@ fi
 
 if [ ! -e vendor/logstash ] ; then
   mkdir vendor/logstash
-  wget -qO- "https://github.com/elasticsearch/logstash/archive/v$LOGSTASH_VERSION.tar.gz" | tar -xzf- -C vendor/logstash --strip-components 1
+  curl -L "https://github.com/elasticsearch/logstash/archive/v$LOGSTASH_VERSION.tar.gz" | tar -xzf- -C vendor/logstash --strip-components 1
 fi
+
+if [ "$OS" == "Windows_NT" ] ; then
+	echo "Setting up extra Windows dependencies"
+	if ! which make ; then
+	  pushd $TMP
+	  curl -L -O http://gnuwin32.sourceforge.net/downlinks/make-bin-zip.php
+	  unzip make-bin-zip.php -d / bin/make.exe
+	  curl -L -O http://gnuwin32.sourceforge.net/downlinks/make-dep-zip.php
+	  unzip make-dep-zip.php -d / bin/libiconv2.dll bin/libintl3.dll
+	  
+	  rm -f make-bin-zip.php 
+	  rm -f make-dep-zip.php
+	  popd
+	fi
+fi 
 
 cd vendor/logstash
 
