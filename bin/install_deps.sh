@@ -41,3 +41,8 @@ cd vendor/logstash
 
 make vendor-jruby
 bin/logstash deps
+
+if [ -e bin/plugin ] ; then
+  echo "Adding community plugins ... (takes a few minutes)"
+  bin/plugin install contrib
+fi
