@@ -27,5 +27,7 @@ setup
 
 for CONFERB in $(find src -name *.conf.erb) ; do
     echo "compiling ${CONFERB}..."
-    $RUBYCMD -e "require 'erb'; puts ERB.new(File.read('$CONFERB')).result(binding)" > target/`basename "$CONFERB" | rev | cut -c5- | rev`
+	target_file=`basename $CONFERB`
+	target_file=${target_file%.erb}
+    $RUBYCMD -e "require 'erb'; puts ERB.new(File.read('$CONFERB')).result(binding)" > target/$target_file
 done
