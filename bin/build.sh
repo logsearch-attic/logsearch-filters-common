@@ -8,8 +8,8 @@
 # the ERB files get processed.
 #
 
-[ -d target ] && rm -fr target
-mkdir target/
+rm -fr target/*
+mkdir -p target/
 
 # plain configs
 cp src/*.conf target/
