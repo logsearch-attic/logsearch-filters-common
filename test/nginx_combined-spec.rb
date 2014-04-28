@@ -16,7 +16,7 @@ describe LogStash::Filters::Grok do
 
       insist { subject["@type"] } == "nginx_combined"
       insist { subject["tags"] } == [ 'nginx' ]
-      insist { subject["@timestamp"] } == Time.iso8601("2013-06-06T07:28:33.000Z").utc
+      insist { subject["@timestamp"] } == Time.iso8601("2013-06-06T07:28:33.000Z")
 
       insist { subject['remote_addr'] } == '192.0.2.15'
       insist { subject['remote_user'] } == '-'
