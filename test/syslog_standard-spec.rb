@@ -11,7 +11,7 @@ describe LogStash::Filters::Grok do
   CONFIG
 
   describe "Accepting standard syslog message without PID specified" do
-    sample("@type" => "syslog", "host" => "1.2.3.4", "@message" => '<85>Apr 24 02:05:03 localhost sudo: bosh_h5156e598 : TTY=pts/0 ; PWD=/var/vcap/bosh_ssh/bosh_h5156e598 ; USER=root ; COMMAND=/bin/pwd') do
+    sample("@type" => "syslog", "host" => "1.2.3.4:12345", "@message" => '<85>Apr 24 02:05:03 localhost sudo: bosh_h5156e598 : TTY=pts/0 ; PWD=/var/vcap/bosh_ssh/bosh_h5156e598 ; USER=root ; COMMAND=/bin/pwd') do
       insist { subject["tags"] } == [ 'syslog_standard' ]
       insist { subject["@type"] } == 'syslog'
       insist { subject["@timestamp"] } == Time.iso8601("2014-04-23T14:05:03.000Z").utc
