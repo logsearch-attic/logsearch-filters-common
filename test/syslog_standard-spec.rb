@@ -14,7 +14,7 @@ describe LogStash::Filters::Grok do
     sample("@type" => "syslog", "host" => "1.2.3.4:12345", "@message" => '<85>Apr 24 02:05:03 localhost sudo: bosh_h5156e598 : TTY=pts/0 ; PWD=/var/vcap/bosh_ssh/bosh_h5156e598 ; USER=root ; COMMAND=/bin/pwd') do
       insist { subject["tags"] } == [ 'syslog_standard' ]
       insist { subject["@type"] } == 'syslog'
-      insist { subject["@timestamp"] } == Time.iso8601("2014-04-23T14:05:03.000Z").utc
+      insist { subject["@timestamp"] } == Time.iso8601("2014-04-24T02:05:03.000Z")
       insist { subject['@source.host'] } == '1.2.3.4'
 
       insist { subject['syslog_facility'] } == 'security/authorization'
@@ -31,7 +31,7 @@ describe LogStash::Filters::Grok do
     sample("@type" => "relp", "host" => "1.2.3.4", "@message" => '<78>Apr 24 04:03:06 localhost crontab[32185]: (root) LIST (root)') do
       insist { subject["tags"] } == [ 'syslog_standard' ]
       insist { subject["@type"] } == 'relp'
-      insist { subject["@timestamp"] } == Time.iso8601("2014-04-23T16:03:06.000Z").utc
+      insist { subject["@timestamp"] } == Time.iso8601("2014-04-24T04:03:06.000Z")
       insist { subject['@source.host'] } == '1.2.3.4'
 
       insist { subject['syslog_facility'] } == 'clock'
@@ -48,7 +48,7 @@ describe LogStash::Filters::Grok do
     sample("@type" => "syslog", "host" => "1.2.3.4", "@message" => '<14>2014-04-23T23:19:01.227366+00:00 172.31.201.31 vcap.nats [job=vcap.nats index=1]  {\"timestamp\":1398295141.227022}') do
       insist { subject["tags"] } == [ 'syslog_standard' ]
       insist { subject["@type"] } == 'syslog'
-      insist { subject["@timestamp"] } == Time.iso8601("2014-04-23T23:19:01.227Z").utc
+      insist { subject["@timestamp"] } == Time.iso8601("2014-04-23T23:19:01.227Z")
       insist { subject['@source.host'] } == '172.31.201.31'
 
       insist { subject['syslog_facility'] } == 'user-level'
