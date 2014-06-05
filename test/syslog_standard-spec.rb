@@ -68,4 +68,66 @@ describe LogStash::Filters::Grok do
     end
   end
 
+  describe "Cloud Foundry loggregator messages" do
+    sample('@type' => 'syslog', 'host' => 'rspec', '@message' => '276 <14>1 2014-05-20T20:40:49+00:00 loggregator d5a5e8a5-9b06-4dd3-8157-e9bd3327b9dc [App/0] - - {"@timestamp":"2014-05-20T20:40:49.907Z","message":"LowRequestRate 2014-05-20T15:44:58.794Z","@source.name":"watcher-bot-ppe","logger":"logsearch_watcher_bot.Program","level":"WARN"}') do
+      insist { subject["tags"] } === [ 'syslog_standard' ]
+      insist { subject["@type"] } === 'syslog'
+      insist { subject["@timestamp"] } === Time.iso8601("2014-05-20T20:40:49Z")
+      insist { subject['@source.host'] } === 'loggregator'
+      insist { subject['syslog_program'] } === 'd5a5e8a5-9b06-4dd3-8157-e9bd3327b9dc'
+
+      insist { subject['syslog6587_msglen'] } === 276
+      insist { subject['syslog5424_ver'] } === 1
+      insist { subject['syslog_severity_code'] } === 6
+      insist { subject['syslog_severity'] } === 'informational'
+      insist { subject['syslog_facility_code'] } === 1
+      insist { subject['syslog_facility'] } === 'user-level'
+
+      insist { subject['syslog_message'] } == '[App/0] - - {"@timestamp":"2014-05-20T20:40:49.907Z","message":"LowRequestRate 2014-05-20T15:44:58.794Z","@source.name":"watcher-bot-ppe","logger":"logsearch_watcher_bot.Program","level":"WARN"}'
+
+      insist { subject['received_at'] }.class == Time
+      insist { subject['received_from'] } == 'rspec'
+    end
+
+    sample('@type' => 'syslog', 'host' => 'rspec', '@message' => '167 <14>1 2014-05-20T09:46:16+00:00 loggregator d5a5e8a5-9b06-4dd3-8157-e9bd3327b9dc [App/0] - - Updating AppSettings for /home/vcap/app/logsearch-watcher-bot.exe.config') do
+      insist { subject["tags"] } === [ 'syslog_standard' ]
+      insist { subject["@type"] } === 'syslog'
+      insist { subject["@timestamp"] } === Time.iso8601("2014-05-20T09:46:16Z")
+      insist { subject['@source.host'] } === 'loggregator'
+      insist { subject['syslog_program'] } === 'd5a5e8a5-9b06-4dd3-8157-e9bd3327b9dc'
+
+      insist { subject['syslog6587_msglen'] } === 167
+      insist { subject['syslog5424_ver'] } === 1
+      insist { subject['syslog_severity_code'] } === 6
+      insist { subject['syslog_severity'] } === 'informational'
+      insist { subject['syslog_facility_code'] } === 1
+      insist { subject['syslog_facility'] } === 'user-level'
+
+      insist { subject['syslog_message'] } == '[App/0] - - Updating AppSettings for /home/vcap/app/logsearch-watcher-bot.exe.config'
+
+      insist { subject['received_at'] }.class == Time
+      insist { subject['received_from'] } == 'rspec'
+    end
+
+    sample('@type' => 'syslog', 'host' => 'rspec', '@message' => '94 <11>1 2014-05-20T09:46:07+00:00 loggregator d5a5e8a5-9b06-4dd3-8157-e9bd3327b9dc [App/0] - -') do
+      insist { subject["tags"] } === [ 'syslog_standard' ]
+      insist { subject["@type"] } === 'syslog'
+      insist { subject["@timestamp"] } === Time.iso8601("2014-05-20T09:46:07Z")
+      insist { subject['@source.host'] } === 'loggregator'
+      insist { subject['syslog_program'] } === 'd5a5e8a5-9b06-4dd3-8157-e9bd3327b9dc'
+
+      insist { subject['syslog6587_msglen'] } === 94
+      insist { subject['syslog5424_ver'] } === 1
+      insist { subject['syslog_severity_code'] } === 3
+      insist { subject['syslog_severity'] } === 'error'
+      insist { subject['syslog_facility_code'] } === 1
+      insist { subject['syslog_facility'] } === 'user-level'
+
+      insist { subject['syslog_message'] } == '[App/0] - -'
+
+      insist { subject['received_at'] }.class == Time
+      insist { subject['received_from'] } == 'rspec'
+    end
+  end
+
 end
