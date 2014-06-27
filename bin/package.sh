@@ -1,7 +1,7 @@
 #!/bin/bash -e
 basedir=$(cd `dirname $0`/..; pwd)
 BUILD_NUMBER=${BUILD_NUMBER:-dev}
-TGZ="logstash-filters-common-${BUILD_NUMBER}.tgz"
+TGZ="logsearch-filters-common-${BUILD_NUMBER}.tgz"
 
 echo "====> Packaging..."
 echo $(date)
