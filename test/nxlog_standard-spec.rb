@@ -21,7 +21,6 @@ describe LogStash::Filters::Grok do
 
       insist { subject['@message'] } == "2014-06-23 08:53:46 W3SVC1 SOURCE-HOSTNAME 172.16.68.7 GET /tradingapi - 81 - 172.16.68.245 HTTP/1.0 - - - dns.name.co.uk 200 0 0 2923 106 46"
       insist { subject['@shipper'] } == {
-        "pid" => "14506",
         "host" => "SHIPPER-HOSTNAME",
         "event_received_time" => "2014-06-23 09:54:13",
         "module_name" => "in1",
