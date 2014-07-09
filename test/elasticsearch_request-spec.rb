@@ -8,7 +8,7 @@ describe LogStash::Filters::Grok do
 
     config <<-CONFIG
       filter {
-        #{File.read('target/75-elasticsearch_request.conf')}
+        #{File.read('target/elasticsearch_request.conf')}
       }
     CONFIG
 

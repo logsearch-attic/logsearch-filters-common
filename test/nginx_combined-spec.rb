@@ -8,7 +8,7 @@ describe LogStash::Filters::Grok do
 
     config <<-CONFIG
       filter {
-        #{File.read("target/75-nginx_combined.conf")}
+        #{File.read("target/nginx_combined.conf")}
       }
     CONFIG
 
