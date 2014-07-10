@@ -14,9 +14,17 @@ set -e
 SOURCE_DIR="${1:-src}"
 TARGET_DIR="${2:-target}"
 
+function indent() {
+  c='s/^/  /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+echo "===> Building ..."
 rm -fr $TARGET_DIR/*
 mkdir -p $TARGET_DIR/
-
 
 #
 # plain configs
@@ -58,3 +66,17 @@ for SOURCE_FILE in $(find "$SOURCE_DIR" -name *.conf.erb) ; do
 
     echo "done"
 done
+
+#
+# Concat them all together
+#
+echo "Combining all filters..."
+FILTERS_COMBINED="logstash.filters.conf"
+
+pushd ${TARGET_DIR} > /dev/null
+	FILTERS=$(find . -follow -type f -name '*.conf' | sort -n | cut -d "," -f 2 | xargs)
+	echo ${FILTERS} | indent
+	echo "==> ${TARGET_DIR}/$FILTERS_COMBINED" | indent
+	cat ${FILTERS} >> $FILTERS_COMBINED
+popd > /dev/null
+echo "done"

@@ -16,7 +16,7 @@ echo "====> Packaging..."
 date
 
 cd $SOURCE_DIR
-tar cvzf ../$TGZ .
+tar cvzf ../$TGZ logstash.filters.conf
 
 echo "=====> Done"
 echo "Filters in file: $TGZ"

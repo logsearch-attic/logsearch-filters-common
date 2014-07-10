@@ -10,6 +10,8 @@
 
 set -e
 
+echo "===> Testing ..."
+
 export JAVA_OPTS="$JAVA_OPTS -XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 
 ./vendor/logstash/bin/logstash rspec $(find test -name *spec.rb)
