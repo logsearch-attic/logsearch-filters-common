@@ -12,9 +12,7 @@ set -e
 LS_HEAP_SIZE="${LS_HEAP_SIZE:=500m}"
 JAVA_OPTS="${JAVA_OPTS:-} -XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 
-pushd vendor/logstash > /dev/null
-. bin/logstash.lib.sh
-popd > /dev/null
+. vendor/logstash/bin/logstash.lib.sh
 
 basedir=$PWD
 setup
