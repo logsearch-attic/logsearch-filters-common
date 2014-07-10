@@ -10,8 +10,15 @@
 
 set -e
 
-echo "===> Testing ..."
-
 export JAVA_OPTS="$JAVA_OPTS -XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+
+
+echo "===> Building ..."
+
+mkdir -p target
+./bin/build.sh src/defaults.conf.erb > target/defaults.conf
+
+
+echo "===> Testing ..."
 
 ./vendor/logstash/bin/logstash rspec $(find test -name *spec.rb)
