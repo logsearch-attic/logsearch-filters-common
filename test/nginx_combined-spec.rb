@@ -8,13 +8,12 @@ describe LogStash::Filters::Grok do
 
     config <<-CONFIG
       filter {
-        #{File.read("target/75-nginx_combined.conf")}
+        #{File.read("snippets/nginx_combined.conf")}
       }
     CONFIG
 
-    sample("@type" => "nginx_combined", "@message" => '192.0.2.15 - - [06/Jun/2013:07:28:33 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36"') do
+    sample("@message" => '192.0.2.15 - - [06/Jun/2013:07:28:33 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36"') do
 
-      insist { subject["@type"] } == "nginx_combined"
       insist { subject["tags"] } == [ 'nginx' ]
       insist { subject["@timestamp"] } == Time.iso8601("2013-06-06T07:28:33.000Z")
 
