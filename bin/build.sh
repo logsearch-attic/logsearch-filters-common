@@ -18,5 +18,9 @@ basedir=$PWD
 setup
 
 for SOURCE_FILE in $@ ; do
-    $RUBYCMD -e "require 'erb'; puts ERB.new(File.read('$SOURCE_FILE')).result(binding)"
+    if [[ "$SOURCE_FILE" =~ .erb$ ]]; then
+        $RUBYCMD -e "require 'erb'; puts ERB.new(File.read('$SOURCE_FILE')).result(binding)"
+    else
+        cat "$SOURCE_FILE"
+    fi
 done
