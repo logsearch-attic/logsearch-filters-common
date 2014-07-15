@@ -22,8 +22,8 @@ describe LogStash::Filters::Grok do
       insist { subject['request_method'] } == 'GET'
       insist { subject['request_uri'] } == '/favicon.ico'
       insist { subject['request_httpversion'] } == '1.1'
-      insist { subject['status'] } == '200'
-      insist { subject['body_bytes_sent'] } == '0'
+      insist { subject['status'] } === 200
+      insist { subject['body_bytes_sent'] } === 0
       insist { subject['http_referer'] }.nil?
       insist { subject['http_user_agent'] } == '"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36"'
 
