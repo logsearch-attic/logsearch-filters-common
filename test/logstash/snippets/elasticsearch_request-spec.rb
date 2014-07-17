@@ -7,7 +7,7 @@ describe LogStash::Filters::Grok do
   describe 'elasticsearch_request' do
     config <<-CONFIG
       filter {
-        #{File.read('snippets/elasticsearch_request.conf')}
+        #{File.read('src/logstash/snippets/elasticsearch_request.conf')}
       }
     CONFIG
 

@@ -9,8 +9,8 @@ describe LogStash::Filters::Grok do
 
     config <<-CONFIG
       filter {
-        #{File.read("snippets/syslog_standard.conf")}
-        #{File.read("snippets/nxlog_standard.conf")}
+        #{File.read("src/logstash/snippets/syslog_standard.conf")}
+        #{File.read("src/logstash/snippets/nxlog_standard.conf")}
       }
     CONFIG
 
@@ -38,9 +38,9 @@ describe LogStash::Filters::Grok do
 
     config <<-CONFIG
       filter {
-        #{File.read("snippets/syslog_standard.conf")}
-        #{File.read("snippets/nxlog_standard.conf")}
-        #{File.read("snippets/nginx_combined.conf")}
+        #{File.read("src/logstash/snippets/syslog_standard.conf")}
+        #{File.read("src/logstash/snippets/nxlog_standard.conf")}
+        #{File.read("src/logstash/snippets/nginx_combined.conf")}
       }
     CONFIG
 
@@ -92,8 +92,8 @@ describe LogStash::Filters::Grok do
 
     config <<-CONFIG
       filter {
-        #{File.read("snippets/syslog_standard.conf")}
-        #{File.read("snippets/nxlog_standard.conf")}
+        #{File.read("src/logstash/snippets/syslog_standard.conf")}
+        #{File.read("src/logstash/snippets/nxlog_standard.conf")}
       }
     CONFIG
 

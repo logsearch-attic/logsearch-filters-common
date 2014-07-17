@@ -6,7 +6,7 @@ describe LogStash::Filters::Grok do
 
   config <<-CONFIG
     filter {
-      #{File.read("snippets/syslog_standard.conf")}
+      #{File.read("src/logstash/snippets/syslog_standard.conf")}
     }
   CONFIG
 

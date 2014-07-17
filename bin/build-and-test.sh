@@ -13,8 +13,8 @@ set -e
 
 echo "===> Building ..."
 
-mkdir -p target
-./bin/build.sh src/defaults.conf.erb > target/defaults.conf
+mkdir -p target/logstash
+./bin/build.sh src/logstash/defaults.conf.erb > target/logstash/defaults.conf
 
 
 echo "===> Testing ..."

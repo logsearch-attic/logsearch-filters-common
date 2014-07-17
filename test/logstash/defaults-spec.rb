@@ -8,7 +8,7 @@ describe LogStash::Filters::Grok do
 
     config <<-CONFIG
       filter {
-        #{File.read('target/defaults.conf')}
+        #{File.read('target/logstash/defaults.conf')}
       }
     CONFIG
 

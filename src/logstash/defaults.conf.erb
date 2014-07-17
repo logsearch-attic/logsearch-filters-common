@@ -1,0 +1,19 @@
+if [@type] in ["syslog", "relp"] {
+<%= File.read('src/logstash/snippets/syslog_standard.conf').gsub(/^/, '  ') %>
+}
+
+if [@type] == "syslog" and [syslog_message] =~ /^\- \- \[NXLOG/ {
+<%= File.read('src/logstash/snippets/nxlog_standard.conf').gsub(/^/m, '  ') %>
+}
+
+if [@type] == "json" {
+<%= File.read('src/logstash/snippets/json.conf').gsub(/^/, '  ') %>
+}
+
+if [@type] == "elasticsearch_request" {
+<%= File.read('src/logstash/snippets/elasticsearch_request.conf').gsub(/^/, '  ') %>
+}
+
+if [@type] == "nginx_combined" {
+<%= File.read('src/logstash/snippets/nginx_combined.conf').gsub(/^/, '  ') %>
+}

@@ -8,7 +8,7 @@ describe LogStash::Filters::Grok do
 
     config <<-CONFIG
       filter {
-        #{File.read('snippets/json.conf')}
+        #{File.read('src/logstash/snippets/json.conf')}
       }
     CONFIG
 
