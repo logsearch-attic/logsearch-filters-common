@@ -1,8 +1,5 @@
 if [@type] in ["syslog", "relp"] {
 <%= File.read('src/logstash/snippets/syslog_standard.conf').gsub(/^/, '  ') %>
-}
-
-if [@type] == "syslog" and [syslog_message] =~ /^\- \- \[NXLOG/ {
 <%= File.read('src/logstash/snippets/nxlog_standard.conf').gsub(/^/m, '  ') %>
 }
 

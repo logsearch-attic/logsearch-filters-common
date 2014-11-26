@@ -78,7 +78,9 @@ describe LogStash::Filters::Grok do
       insist { subject['syslog_facility_code'] } === 1
       insist { subject['syslog_facility'] } === 'user-level'
 
-      insist { subject['syslog_message'] } == '[App/0] - - {"@timestamp":"2014-05-20T20:40:49.907Z","message":"LowRequestRate 2014-05-20T15:44:58.794Z","@source.name":"watcher-bot-ppe","logger":"logsearch_watcher_bot.Program","level":"WARN"}'
+      insist { subject['syslog_procid'] } == '[App/0]'
+      insist { subject['syslog_msgid'] } == '-'
+      insist { subject['syslog_message'] } == '{"@timestamp":"2014-05-20T20:40:49.907Z","message":"LowRequestRate 2014-05-20T15:44:58.794Z","@source.name":"watcher-bot-ppe","logger":"logsearch_watcher_bot.Program","level":"WARN"}'
 
       insist { subject['received_at'] }.class == Time
       insist { subject['received_from'] } == 'rspec'
@@ -97,7 +99,9 @@ describe LogStash::Filters::Grok do
       insist { subject['syslog_facility_code'] } === 1
       insist { subject['syslog_facility'] } === 'user-level'
 
-      insist { subject['syslog_message'] } == '[App/0] - - Updating AppSettings for /home/vcap/app/logsearch-watcher-bot.exe.config'
+      insist { subject['syslog_procid'] } == '[App/0]'
+      insist { subject['syslog_msgid'] } == '-'
+      insist { subject['syslog_message'] } == 'Updating AppSettings for /home/vcap/app/logsearch-watcher-bot.exe.config'
 
       insist { subject['received_at'] }.class == Time
       insist { subject['received_from'] } == 'rspec'
@@ -116,7 +120,9 @@ describe LogStash::Filters::Grok do
       insist { subject['syslog_facility_code'] } === 1
       insist { subject['syslog_facility'] } === 'user-level'
 
-      insist { subject['syslog_message'] } == '[App/0] - -'
+      insist { subject['syslog_procid'] } == '[App/0]'
+      insist { subject['syslog_msgid'] } == '-'
+      insist { subject['syslog_message'] } == '-'
 
       insist { subject['received_at'] }.class == Time
       insist { subject['received_from'] } == 'rspec'
