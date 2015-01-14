@@ -17,6 +17,15 @@ else
   LOGSTASH_VERSION=$1
 fi
 
+# The logsearch-workspace already contains logstash, so use that
+if [ -e /var/local/logstash-$LOGSTASH_VERSION ] ; then
+  echo "Detected that running in Logsearch Workspace.  Linking to logstash at /var/local/logstash-$LOGSTASH_VERSION" 
+  if [ ! -e vendor/logstash ] ; then
+     ln -s /var/local/logstash-$LOGSTASH_VERSION vendor/logstash
+  fi
+  exit
+fi
+
 if [ ! -e vendor/logstash ] ; then
   mkdir vendor/logstash
   curl -L "https://github.com/elasticsearch/logstash/archive/v$LOGSTASH_VERSION.tar.gz" | tar -xzf- -C vendor/logstash --strip-components 1
