@@ -18,10 +18,10 @@ else
 fi
 
 # The logsearch-workspace already contains logstash, so use that
-if [ -e /var/local/logstash-$LOGSTASH_VERSION ] ; then
-  echo "Detected that running in Logsearch Workspace.  Linking to logstash at /var/local/logstash-$LOGSTASH_VERSION" 
+if [ -e /usr/local/logstash-$LOGSTASH_VERSION ] ; then
+  echo "Detected that running in Logsearch Workspace.  Linking to logstash at /usr/local/logstash-$LOGSTASH_VERSION" 
   if [ ! -e vendor/logstash ] ; then
-     ln -s /var/local/logstash-$LOGSTASH_VERSION vendor/logstash
+     ln -s /usr/local/logstash-$LOGSTASH_VERSION vendor/logstash
   fi
   exit
 fi
