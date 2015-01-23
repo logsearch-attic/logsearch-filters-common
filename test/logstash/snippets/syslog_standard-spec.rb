@@ -13,7 +13,7 @@ describe LogStash::Filters::Grok do
   describe "Accepting standard syslog message without PID specified" do
     sample("host" => "1.2.3.4:12345", "@message" => '<85>Apr 24 02:05:03 localhost sudo: bosh_h5156e598 : TTY=pts/0 ; PWD=/var/vcap/bosh_ssh/bosh_h5156e598 ; USER=root ; COMMAND=/bin/pwd') do
       insist { subject["tags"] } == [ 'syslog_standard' ]
-      insist { subject["@timestamp"] } == Time.iso8601("2014-04-24T02:05:03.000Z")
+      insist { subject["@timestamp"] } == Time.iso8601("#{Time.now.year}-04-24T02:05:03.000Z")
       insist { subject['@source.host'] } == '1.2.3.4'
 
       insist { subject['syslog_facility'] } == 'security/authorization'
@@ -29,7 +29,7 @@ describe LogStash::Filters::Grok do
   describe "Accepting standard syslog message with PID specified" do
     sample("host" => "1.2.3.4", "@message" => '<78>Apr 24 04:03:06 localhost crontab[32185]: (root) LIST (root)') do
       insist { subject["tags"] } == [ 'syslog_standard' ]
-      insist { subject["@timestamp"] } == Time.iso8601("2014-04-24T04:03:06.000Z")
+      insist { subject["@timestamp"] } == Time.iso8601("#{Time.now.year}-04-24T04:03:06.000Z")
       insist { subject['@source.host'] } == '1.2.3.4'
 
       insist { subject['syslog_facility'] } == 'clock'
@@ -78,7 +78,9 @@ describe LogStash::Filters::Grok do
       insist { subject['syslog_facility_code'] } === 1
       insist { subject['syslog_facility'] } === 'user-level'
 
-      insist { subject['syslog_message'] } == '[App/0] - - {"@timestamp":"2014-05-20T20:40:49.907Z","message":"LowRequestRate 2014-05-20T15:44:58.794Z","@source.name":"watcher-bot-ppe","logger":"logsearch_watcher_bot.Program","level":"WARN"}'
+      insist { subject['syslog_procid'] } == '[App/0]'
+      insist { subject['syslog_msgid'] } == '-'
+      insist { subject['syslog_message'] } == '{"@timestamp":"2014-05-20T20:40:49.907Z","message":"LowRequestRate 2014-05-20T15:44:58.794Z","@source.name":"watcher-bot-ppe","logger":"logsearch_watcher_bot.Program","level":"WARN"}'
 
       insist { subject['received_at'] }.class == Time
       insist { subject['received_from'] } == 'rspec'
@@ -97,7 +99,9 @@ describe LogStash::Filters::Grok do
       insist { subject['syslog_facility_code'] } === 1
       insist { subject['syslog_facility'] } === 'user-level'
 
-      insist { subject['syslog_message'] } == '[App/0] - - Updating AppSettings for /home/vcap/app/logsearch-watcher-bot.exe.config'
+      insist { subject['syslog_procid'] } == '[App/0]'
+      insist { subject['syslog_msgid'] } == '-'
+      insist { subject['syslog_message'] } == 'Updating AppSettings for /home/vcap/app/logsearch-watcher-bot.exe.config'
 
       insist { subject['received_at'] }.class == Time
       insist { subject['received_from'] } == 'rspec'
@@ -116,7 +120,9 @@ describe LogStash::Filters::Grok do
       insist { subject['syslog_facility_code'] } === 1
       insist { subject['syslog_facility'] } === 'user-level'
 
-      insist { subject['syslog_message'] } == '[App/0] - -'
+      insist { subject['syslog_procid'] } == '[App/0]'
+      insist { subject['syslog_msgid'] } == '-'
+      insist { subject['syslog_message'] } == '-'
 
       insist { subject['received_at'] }.class == Time
       insist { subject['received_from'] } == 'rspec'
