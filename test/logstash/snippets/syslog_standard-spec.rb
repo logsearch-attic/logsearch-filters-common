@@ -13,7 +13,7 @@ describe LogStash::Filters::Grok do
   describe "Accepting standard syslog message without PID specified" do
     sample("host" => "1.2.3.4:12345", "@message" => '<85>Apr 24 02:05:03 localhost sudo: bosh_h5156e598 : TTY=pts/0 ; PWD=/var/vcap/bosh_ssh/bosh_h5156e598 ; USER=root ; COMMAND=/bin/pwd') do
       insist { subject["tags"] } == [ 'syslog_standard' ]
-      insist { subject["@timestamp"] } == Time.iso8601("2014-04-24T02:05:03.000Z")
+      insist { subject["@timestamp"] } == Time.iso8601("#{Time.now.year}-04-24T02:05:03.000Z")
       insist { subject['@source.host'] } == '1.2.3.4'
 
       insist { subject['syslog_facility'] } == 'security/authorization'
@@ -29,7 +29,7 @@ describe LogStash::Filters::Grok do
   describe "Accepting standard syslog message with PID specified" do
     sample("host" => "1.2.3.4", "@message" => '<78>Apr 24 04:03:06 localhost crontab[32185]: (root) LIST (root)') do
       insist { subject["tags"] } == [ 'syslog_standard' ]
-      insist { subject["@timestamp"] } == Time.iso8601("2014-04-24T04:03:06.000Z")
+      insist { subject["@timestamp"] } == Time.iso8601("#{Time.now.year}-04-24T04:03:06.000Z")
       insist { subject['@source.host'] } == '1.2.3.4'
 
       insist { subject['syslog_facility'] } == 'clock'
