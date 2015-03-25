@@ -1,3 +1,13 @@
+## Status
+
+![Lifecycle: retired](https://img.shields.io/badge/lifecycle-retired-blue.svg) ![Support: unsupported](https://img.shields.io/badge/support-unsupported-yellow.svg)
+
+The functionality in this project has been merged into the core [logsearch-boshrelease](https://github.com/logsearch/logsearch-boshrelease) as of v19.  This project has thus been retired and is no longer active or supported.
+
+* if you should choose to fork it, please let us know so we can link to your project
+
+---
+
 This is a collection of common logstash filters for the logsearch project. It
 also contains some reusable scripts for testing filters in other repositories.
 
